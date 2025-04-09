@@ -12,10 +12,10 @@ export function HeroSection() {
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                Gerencie seu catálogo de produtos com facilidade
+                Crie seu catálogo de produtos com facilidade
               </h1>
               <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                Uma plataforma moderna para gerenciar seu catálogo de produtos e
+                Uma plataforma moderna para criar seu catálogo de produtos e
                 compartilhar com seus clientes.
               </p>
             </div>
