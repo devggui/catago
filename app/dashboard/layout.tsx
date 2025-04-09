@@ -3,7 +3,6 @@ import { authMiddlewareEnum } from "@/hooks/auth/types"
 import { useOnboardingMiddleware } from "@/hooks/onboarding/middleware"
 import type { PropsWithChildren } from "react"
 import { AppSidebar } from "@/app/dashboard/_components/app-sidebar"
-import { SiteHeader } from "@/app/dashboard/_components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 
 export default async function DashboardLayout({ children }: PropsWithChildren) {
@@ -20,10 +19,7 @@ export default async function DashboardLayout({ children }: PropsWithChildren) {
       }
     >
       <AppSidebar variant="inset" />
-      <SidebarInset>
-        <SiteHeader />
-        {children}
-      </SidebarInset>
+      <SidebarInset>{children}</SidebarInset>
     </SidebarProvider>
   )
 }

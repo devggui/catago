@@ -8,7 +8,7 @@ export const useOnboardingMiddleware = async ({
   isDashboardRoute = false,
 }: UseOnboardingMiddlewareProps) => {
   if (user && user.onboarded) {
-    return redirect("/checkout")
+    return redirect("/pricing")
   } else if (user) {
     if (!isDashboardRoute) {
       return redirect("/dashboard")

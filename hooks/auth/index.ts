@@ -1,16 +1,16 @@
-import { api } from '@/services/api'
-import type { User } from '@/types'
-import { useEffect } from 'react'
-import { toast } from 'sonner'
-import useSWR from 'swr'
+import { api } from "@/services/api"
+import type { User } from "@/types"
+import { useEffect } from "react"
+import { toast } from "sonner"
+import useSWR from "swr"
 import {
   authMiddlewareEnum,
   authStatusEnum,
   SignInProps,
   SignUpProps,
   UseAuthProps,
-} from './types'
-import { useRouter } from 'next/navigation'
+} from "./types"
+import { useRouter } from "next/navigation"
 
 export const useAuth = ({
   middleware,
@@ -24,14 +24,14 @@ export const useAuth = ({
     mutate,
     isLoading,
   } = useSWR(
-    '/auth/me',
+    "/auth/me",
     () =>
       api
-        .get<User>('/auth/me')
+        .get<User>("/auth/me")
         .then((res) => res.data)
         .catch((error) => {
           if (error.response.status !== 409) throw error
-          window.location.href = '/login'
+          window.location.href = "/login"
         }),
     {
       revalidateOnMount: true,
@@ -44,32 +44,32 @@ export const useAuth = ({
 
   const signUp = async (props: SignUpProps) => {
     try {
-      const { data } = await api.post('/auth/register', props)
+      const { data } = await api.post("/auth/register", props)
 
       if (data?.status === authStatusEnum.authenticated) {
-        window.location.href = '/dashboard'
+        window.location.href = "/dashboard"
       }
 
       mutate()
     } catch {
-      toast('Ooops!', {
-        description: 'O e-mail informado já está em uso',
+      toast("Ooops!", {
+        description: "O e-mail informado já está em uso",
       })
     }
   }
 
   const signIn = async (props: SignInProps) => {
     try {
-      const { data } = await api.post('/auth/login', props)
+      const { data } = await api.post("/auth/login", props)
 
       if (data?.status === authStatusEnum.authenticated) {
-        window.location.href = '/dashboard'
+        window.location.href = "/dashboard"
       }
 
       mutate()
     } catch {
-      toast('Ooops!', {
-        description: 'E-mail ou senha inválidos',
+      toast("Ooops!", {
+        description: "E-mail ou senha inválidos",
       })
     }
   }
@@ -77,16 +77,16 @@ export const useAuth = ({
   const signOut = async () => {
     if (!error) {
       try {
-        const { data } = await api.post('/auth/logout')
+        const { data } = await api.post("/auth/logout")
 
         if (data?.status === authStatusEnum.logged_out) {
-          window.location.href = '/login'
+          window.location.href = "/login"
         }
 
         mutate()
       } catch {
-        toast('Ooops!', {
-          description: 'Erro inesperado',
+        toast("Ooops!", {
+          description: "Erro inesperado",
         })
       }
     }
