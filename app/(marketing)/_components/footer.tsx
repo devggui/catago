@@ -24,8 +24,7 @@ export function Footer() {
         </nav>
         <div className="md:ml-auto flex gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Catalogo. Todos os direitos
-            reservados.
+            © {new Date().getFullYear()} CataGo. Todos os direitos reservados.
           </p>
         </div>
       </div>

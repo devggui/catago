@@ -1,14 +1,14 @@
-'use client'
+"use client"
 
-import { SignUpSchema } from '@/app/(auth)/register/_components/form/schema'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { useAuth } from '@/hooks/auth'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Loader2 } from 'lucide-react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { SignUpSchema } from "@/app/(auth)/register/_components/form/schema"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useAuth } from "@/hooks/auth"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Loader2 } from "lucide-react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 
 type SignUpData = z.infer<typeof SignUpSchema>
 
@@ -32,7 +32,7 @@ export const RegisterForm = () => {
           id="name"
           placeholder="Seu nome completo"
           autoFocus
-          {...register('name')}
+          {...register("name")}
         />
         {errors.name && (
           <span className="text-sm text-red-500">{errors.name.message}</span>
@@ -44,7 +44,7 @@ export const RegisterForm = () => {
           type="text"
           id="email"
           placeholder="exemplo@exemplo.com"
-          {...register('email')}
+          {...register("email")}
         />
         {errors.email && (
           <span className="text-sm text-red-500">{errors.email.message}</span>
@@ -57,11 +57,26 @@ export const RegisterForm = () => {
           id="password"
           autoComplete="new-password"
           placeholder="******"
-          {...register('password')}
+          {...register("password")}
         />
         {errors.password && (
           <span className="text-sm text-red-500">
             {errors.password.message}
+          </span>
+        )}
+      </div>
+      <div className="flex flex-col gap-3">
+        <Label htmlFor="confirmPassword">Confirme a Senha</Label>
+        <Input
+          type="password"
+          id="confirmPassword"
+          autoComplete="new-password"
+          placeholder="******"
+          {...register("confirmPassword")}
+        />
+        {errors.confirmPassword && (
+          <span className="text-sm text-red-500">
+            {errors.confirmPassword.message}
           </span>
         )}
       </div>

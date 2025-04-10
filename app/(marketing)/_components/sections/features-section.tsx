@@ -1,4 +1,4 @@
-import { Database, Share2, SlidersHorizontal } from "lucide-react"
+import { Database, Rocket, Share2 } from "lucide-react"
 import { FeatureCard } from "../cards/feature-card"
 
 export function FeaturesSection() {
@@ -29,9 +29,9 @@ export function FeaturesSection() {
             description="Gerencie todos os seus produtos em um único lugar com categorização avançada e metadados personalizáveis."
           />
           <FeatureCard
-            icon={<SlidersHorizontal className="h-6 w-6 text-primary" />}
-            title="Campos personalizados"
-            description="Crie atributos específicos para seus produtos, adaptando o catálogo às necessidades únicas do seu negócio."
+            icon={<Rocket className="h-6 w-6 text-primary" />}
+            title="Fácil de usar"
+            description="Interface intuitiva que permite gerenciar seu catálogo digital com rapidez e sem complicações, mesmo sem experiência técnica."
           />
           <FeatureCard
             icon={<Share2 className="h-6 w-6 text-primary" />}
