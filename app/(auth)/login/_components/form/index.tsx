@@ -1,14 +1,14 @@
-'use client'
+"use client"
 
-import { SignInSchema } from '@/app/(auth)/login/_components/form/schema'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { useAuth } from '@/hooks/auth'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Loader2 } from 'lucide-react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { SignInSchema } from "@/app/(auth)/login/_components/form/schema"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useAuth } from "@/hooks/auth"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Loader2 } from "lucide-react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 
 export type SignInData = z.infer<typeof SignInSchema>
 
@@ -32,7 +32,7 @@ export const LoginForm = () => {
           id="email"
           placeholder="exemplo@exemplo.com"
           autoFocus
-          {...register('email')}
+          {...register("email")}
         />
         {errors.email && (
           <span className="text-sm text-red-500">{errors.email.message}</span>
@@ -45,7 +45,7 @@ export const LoginForm = () => {
           id="password"
           autoComplete="new-password"
           placeholder="******"
-          {...register('password')}
+          {...register("password")}
         />
         {errors.password && (
           <span className="text-sm text-red-500">

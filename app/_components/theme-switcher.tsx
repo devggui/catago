@@ -1,9 +1,9 @@
-'use client'
+"use client"
 
-import { MoonIcon, SunIcon } from 'lucide-react'
-import { useTheme } from 'next-themes'
+import { MoonIcon, SunIcon } from "lucide-react"
+import { useTheme } from "next-themes"
 
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button"
 
 export const ThemeSwitcher = (): React.ReactNode => {
   const { setTheme, theme } = useTheme()
@@ -11,7 +11,7 @@ export const ThemeSwitcher = (): React.ReactNode => {
   return (
     <Button
       variant="link"
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       className="relative inline-flex h-[24px] w-[34px] shrink-0 cursor-pointer border-2 border-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
     >
       <div className="absolute left-0 right-0 top-1/2 h-[0.65rem] translate-y-[-50%] rounded-full bg-gray-200/60 dark:bg-white/10"></div>

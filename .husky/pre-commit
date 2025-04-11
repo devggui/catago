@@ -1,0 +1,4 @@
+#!/bin/sh
+npm run lint || (echo 'Linting errors. Please fix them before commiting.' && exit 1)
+# Test coming soon
+# npm run test || (echo 'Testing errors. Please fix them before commiting.' && exit 1)
