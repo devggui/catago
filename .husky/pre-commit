@@ -1,4 +1,8 @@
 #!/bin/sh
 npm run lint || (echo 'Linting errors. Please fix them before commiting.' && exit 1)
-# Test coming soon
+
+# Playwright Tests 
+npm run test:playwright || (echo 'Testing errors. Please fix them before commiting.' && exit 1)
+
+# Jest and Playwright Tests Together Coming Soon
 # npm run test || (echo 'Testing errors. Please fix them before commiting.' && exit 1)
