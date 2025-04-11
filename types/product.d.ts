@@ -2,17 +2,13 @@ export type Product = {
   id: string
   name: string
   slug: string
-  description: string | null
+  description?: string
   price: string // Prisma Decimal é convertido em string no client
-  category: string | null
+  category?: string
   isActive: boolean
   isHighlighted: boolean
-  imageUrl: string | null
+  imageUrl: string
   images: ProductImage[]
-  userId: string
-  catalogs: Catalog[]
-  createdAt: string
-  updatedAt: string
 }
 
 export type ProductImage = {
