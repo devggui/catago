@@ -5,5 +5,5 @@ export const CatalogFormSchema = z.object({
   name: z.string().min(1, "Nome é obrigatório"),
   slug: z.string().min(1, "Slug é obrigatório"),
   description: z.string().optional(),
-  logo: z.string().optional(),
+  logo: z.string().optional().nullable(),
 })

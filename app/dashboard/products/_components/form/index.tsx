@@ -105,7 +105,7 @@ export const ProductForm = ({
             Insira as informações do seu produto
           </DrawerDescription>
         </DrawerHeader>
-        <div className="mx-auto w-full max-w-md">
+        <div className="mx-auto w-full max-w-md overflow-y-auto">
           <form
             className="flex flex-col gap-6 p-4"
             onSubmit={handleSubmit(sendForm)}

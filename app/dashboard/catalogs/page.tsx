@@ -41,7 +41,7 @@ export default function CatalogsPage() {
   const handleConfirmDelete = async () => {
     try {
       setIsDeleteLoading(true)
-      await api.delete(`/Catalogs/${selectedCatalog?.id}`)
+      await api.delete(`/catalogs/${selectedCatalog?.id}`)
       setSelectedCatalog(undefined)
       setIsDeleteDialogOpen(false)
       setVersion(version + 1)

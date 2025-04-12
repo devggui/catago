@@ -10,6 +10,12 @@ export function Header() {
         <Logo />
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <Link
+            href="/dashboard"
+            className="transition-colors hover:text-foreground/80"
+          >
+            Dashboard
+          </Link>
+          <Link
             href="#features"
             className="transition-colors hover:text-foreground/80"
           >

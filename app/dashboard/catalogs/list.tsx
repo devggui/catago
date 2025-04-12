@@ -1,6 +1,6 @@
 "use client"
 
-import { useCatalogContext } from "@/app/dashboard/(catalogs)/context"
+import { useCatalogContext } from "@/app/dashboard/catalogs/context"
 import { Skeleton } from "@/components/ui/skeleton"
 import { api } from "@/services/api"
 import type { Catalog } from "@/types"
@@ -24,7 +24,7 @@ export const CatalogList = ({
   const loadCatalogs = async () => {
     try {
       updateList({ loading: true })
-      const { data } = await api.get<Catalog[]>("/Catalogs")
+      const { data } = await api.get<Catalog[]>("/catalogs")
       updateList({ items: data })
     } catch {
       toast("Ooops!", {
@@ -51,12 +51,11 @@ export const CatalogList = ({
 
 export const CatalogListLoading = () => {
   return (
-    <div className="overflow-hidden rounded-md border">
-      <Skeleton className="h-12 w-full border-b" />
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3 rounded-md">
       {[...Array(5)].map((_, index) => (
         <Skeleton
-          key={`Catalog-loading-item-${index}`}
-          className="h-16 w-full rounded-none border-b last:border-b-0"
+          key={`catalog-loading-item-${index}`}
+          className="h-40 w-full rounded-md border-b last:border-b-0"
         />
       ))}
     </div>

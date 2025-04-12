@@ -25,7 +25,7 @@ export const ProductList = ({
   const loadProducts = async () => {
     try {
       updateList({ loading: true })
-      const { data } = await api.get<Product[]>("/Products")
+      const { data } = await api.get<Product[]>("/products")
       updateList({ items: data })
     } catch {
       toast("Ooops!", {
