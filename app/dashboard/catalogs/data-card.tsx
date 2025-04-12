@@ -1,3 +1,5 @@
+"use client"
+
 import type { Catalog } from "@/types"
 import {
   Card,
@@ -20,7 +22,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
-import Link from "next/link"
+import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu"
+import { CatalogPreviewDialog } from "./_components/catalog-preview-dialog"
+import { useState } from "react"
+import { toast } from "sonner"
+import { Copy, Edit, Eye, Trash } from "lucide-react"
 
 interface DataCardProps {
   actions: {
@@ -31,6 +37,16 @@ interface DataCardProps {
 }
 
 export function DataCard({ actions, data }: DataCardProps) {
+  const [previewCatalog, setPreviewCatalog] = useState<Catalog | null>(null)
+
+  const handleCopyLink = (catalogId: string) => {
+    const link = `${window.location.origin}/catalog/${catalogId}`
+    navigator.clipboard.writeText(link)
+    toast.success("Sucesso!", {
+      description: "Link do catálogo copiado com sucesso!",
+    })
+  }
+
   return (
     <div
       className={cn(
@@ -41,54 +57,68 @@ export function DataCard({ actions, data }: DataCardProps) {
     >
       {data.length > 0 ? (
         data.map((catalog) => (
-          <Link key={catalog.id} href={`/dashboard/catalogs/${catalog.id}`}>
-            <Card key={catalog.id} className="@container/card">
-              <CardHeader>
-                <CardDescription className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <IconFolder className="w-4 h-4" />
-                  Catálogo
-                </CardDescription>
-                <CardTitle className="text-2xl font-semibold leading-snug line-clamp-2">
-                  {catalog.name}
-                </CardTitle>
-                <CardAction>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className="cursor-pointer">
-                      <IconDotsVertical />
-                      <span className="sr-only">Open menu</span>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuItem onClick={() => actions.onEdit(catalog)}>
-                        Editar
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        onClick={() => actions.onDelete(catalog)}
-                      >
-                        Excluir
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </CardAction>
-              </CardHeader>
-              <CardFooter className="flex-col items-start gap-1.5 text-sm">
-                {catalog.description && (
-                  <p className="line-clamp-2">{catalog.description}</p>
-                )}
-                <span className="text-xs text-muted-foreground">
-                  Criado em: {new Date(catalog.createdAt).toLocaleDateString()}
-                </span>
-                {catalog.logo && (
-                  <Image
-                    src={catalog.logo}
-                    alt={catalog.name}
-                    width={40}
-                    height={40}
-                    className="mt-2 rounded"
-                  />
-                )}
-              </CardFooter>
-            </Card>
-          </Link>
+          <Card key={catalog.id} className="@container/card">
+            <CardHeader>
+              <CardDescription className="flex items-center gap-2 text-sm text-muted-foreground">
+                <IconFolder className="w-4 h-4" />
+                Catálogo
+              </CardDescription>
+              <CardTitle className="text-2xl font-semibold leading-snug line-clamp-2">
+                {catalog.name}
+              </CardTitle>
+              <CardAction>
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="cursor-pointer">
+                    <IconDotsVertical />
+                    <span className="sr-only">Open menu</span>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem
+                      onClick={() => setPreviewCatalog(catalog)}
+                    >
+                      <Eye />
+                      Visualização
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => handleCopyLink(catalog.id)}
+                    >
+                      <Copy />
+                      Copiar link
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => actions.onEdit(catalog)}>
+                      <Edit />
+                      Editar
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      className="text-destructive"
+                      onClick={() => actions.onDelete(catalog)}
+                    >
+                      <Trash className="text-destructive" />
+                      Excluir
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </CardAction>
+            </CardHeader>
+            <CardFooter className="flex-col items-start gap-1.5 text-sm">
+              {catalog.description && (
+                <p className="line-clamp-2">{catalog.description}</p>
+              )}
+              <span className="text-xs text-muted-foreground">
+                Criado em: {new Date(catalog.createdAt).toLocaleDateString()}
+              </span>
+              {catalog.logo && (
+                <Image
+                  src={catalog.logo}
+                  alt={catalog.name}
+                  width={40}
+                  height={40}
+                  className="mt-2 rounded"
+                />
+              )}
+            </CardFooter>
+          </Card>
         ))
       ) : (
         <div className="flex flex-col gap-1 items-center justify-center w-full">
@@ -97,6 +127,14 @@ export function DataCard({ actions, data }: DataCardProps) {
             Nenhum catálogo cadastrado
           </span>
         </div>
+      )}
+
+      {previewCatalog && (
+        <CatalogPreviewDialog
+          catalog={previewCatalog}
+          open={!!previewCatalog}
+          onOpenChange={() => setPreviewCatalog(null)}
+        />
       )}
     </div>
   )

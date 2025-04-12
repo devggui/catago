@@ -7,6 +7,9 @@ import type { Catalog } from "@/types"
 import { DeleteDialog } from "@/components/ui/delete-dialog"
 import { CatalogList, CatalogListLoading } from "./list"
 import { CatalogForm } from "./_components/form"
+import { SiteContainer } from "../_components/site-container"
+import { SiteHeader } from "../_components/site-header"
+import { useProducts } from "@/hooks/products"
 
 export default function CatalogsPage() {
   const [version, setVersion] = useState<number>(0)
@@ -14,6 +17,8 @@ export default function CatalogsPage() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false)
   const [isDeleteLoading, setIsDeleteLoading] = useState<boolean>(false)
   const [selectedCatalog, setSelectedCatalog] = useState<Catalog>()
+
+  const { products } = useProducts()
 
   const handleFormOpenChange = (value: boolean): void => {
     setIsFormOpen(value)
@@ -54,29 +59,34 @@ export default function CatalogsPage() {
 
   return (
     <>
-      <CatalogForm
-        buttonClassName="mb-4 w-max self-end"
-        isOpen={isFormOpen}
-        initialData={selectedCatalog}
-        onOpenChange={handleFormOpenChange}
-        onCreate={handleCreate}
-        onSuccess={() => setVersion(version + 1)}
-      />
-      <Suspense fallback={<CatalogListLoading />}>
-        <CatalogList
-          version={version}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
+      <SiteHeader page="Catálogos" />
+
+      <SiteContainer>
+        <CatalogForm
+          buttonClassName="mb-4 w-max self-end"
+          isOpen={isFormOpen}
+          initialData={selectedCatalog}
+          availableProducts={products}
+          onOpenChange={handleFormOpenChange}
+          onCreate={handleCreate}
+          onSuccess={() => setVersion(version + 1)}
         />
-      </Suspense>
-      <DeleteDialog
-        isOpen={isDeleteDialogOpen}
-        onOpenChange={handleDeleteDialogOpenChange}
-        onSubmit={handleConfirmDelete}
-        isLoading={isDeleteLoading}
-        title="Tem certeza que deseja excluir esse catálogo?"
-        description="Essa ação é irreversível."
-      />
+        <Suspense fallback={<CatalogListLoading />}>
+          <CatalogList
+            version={version}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        </Suspense>
+        <DeleteDialog
+          isOpen={isDeleteDialogOpen}
+          onOpenChange={handleDeleteDialogOpenChange}
+          onSubmit={handleConfirmDelete}
+          isLoading={isDeleteLoading}
+          title="Tem certeza que deseja excluir esse catálogo?"
+          description="Essa ação é irreversível."
+        />
+      </SiteContainer>
     </>
   )
 }
