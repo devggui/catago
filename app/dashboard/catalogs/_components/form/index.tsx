@@ -73,7 +73,7 @@ export const CatalogForm = ({
 
   useEffect(() => {
     if (name) {
-      setValue("slug", generateSlug(name))
+      setValue("slug", generateSlug({ text: name, withNanoId: true }))
     }
   }, [name, setValue])
 
@@ -99,7 +99,7 @@ export const CatalogForm = ({
       onSuccess?.()
       onOpenChange(false)
     } catch {
-      toast("Ooops!", {
+      toast.error("Ooops!", {
         description: "Não foi possível cadastrar o catálogo",
       })
     }
@@ -111,7 +111,7 @@ export const CatalogForm = ({
       onSuccess?.()
       onOpenChange(false)
     } catch {
-      toast("Ooops!", {
+      toast.error("Ooops!", {
         description: "Não foi possível atualizar os dados do catálogo",
       })
     }
@@ -195,6 +195,17 @@ export const CatalogForm = ({
                   )}
                 </div>
 
+                <div className="flex items-center gap-2">
+                  <input
+                    id="isActive"
+                    type="checkbox"
+                    defaultChecked
+                    disabled={!initialData?.id}
+                    {...register("isActive")}
+                  />
+                  <Label htmlFor="isActive">Ativo</Label>
+                </div>
+
                 <div className="grid w-full items-center gap-1.5">
                   <Label htmlFor="logo">Logo</Label>
                   <FileInput
@@ -213,7 +224,7 @@ export const CatalogForm = ({
                       const maxSizeBytes = maxSizeMB * 1024 * 1024
 
                       if (file.size > maxSizeBytes) {
-                        toast("Arquivo muito grande!", {
+                        toast.warning("Arquivo muito grande!", {
                           description: `O tamanho máximo permitido é ${maxSizeMB}MB.`,
                           duration: 4000,
                         })

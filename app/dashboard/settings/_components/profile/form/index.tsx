@@ -32,11 +32,11 @@ export const ProfileForm = ({ initialData }: ProfileFormProps) => {
 
   const onSubmit = () => {
     try {
-      toast("Sucesso!", {
+      toast.success("Sucesso!", {
         description: "Dados atualizados com sucesso!",
       })
     } catch {
-      toast("Ooops!", {
+      toast.error("Ooops!", {
         description: "Não foi possível atualizar seus dados",
       })
     }

@@ -7,7 +7,7 @@ export type Catalog = {
   description?: string | null
   logo?: string | null
   products?: Product[]
-  status: boolean
+  isActive: boolean
   userId: string
   createdAt: string | Date
   updatedAt: string | Date

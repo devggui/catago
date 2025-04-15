@@ -5,12 +5,10 @@ export const ProductFormSchema = z.object({
   name: z.string().min(1, "Nome é obrigatório"),
   slug: z.string().min(1, "Slug é obrigatório"),
   description: z.string().optional(),
-  price: z.string().refine((val) => !isNaN(Number(val)) && Number(val) >= 0, {
-    message: "Preço inválido",
-  }),
+  price: z.coerce.number().min(1, "O preço é obrigatório"),
   category: z.string().optional(),
   isActive: z.boolean(),
   isHighlighted: z.boolean(),
-  imageUrl: z.string(),
-  images: z.array(z.object({ id: z.string(), url: z.string() })),
+  imageUrl: z.string().nullable(),
+  images: z.array(z.string()).optional(),
 })

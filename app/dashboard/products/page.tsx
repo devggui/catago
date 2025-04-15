@@ -46,7 +46,9 @@ export default function ProductsPage() {
       setIsDeleteDialogOpen(false)
       setVersion(version + 1)
     } catch {
-      toast("Ooops!", { description: "Não foi possível excluir o produto." })
+      toast.error("Ooops!", {
+        description: "Não foi possível excluir o produto.",
+      })
     } finally {
       setIsDeleteLoading(false)
     }

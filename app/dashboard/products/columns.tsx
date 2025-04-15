@@ -30,6 +30,11 @@ export const columns = ({
   {
     accessorKey: "price",
     header: "Preço",
+    cell: (report) =>
+      report.row.original.price.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }),
   },
   {
     accessorKey: "category",
@@ -38,18 +43,30 @@ export const columns = ({
   {
     accessorKey: "isActive",
     header: "Ativo",
+    cell: (report) => (report.row.original.isActive ? "ATIVO" : "INÁTIVO"),
   },
   {
     accessorKey: "isHighlighted",
     header: "Destacado",
+    cell: (report) =>
+      report.row.original.isHighlighted ? "DESTACADO" : "NÃO DESTACADO",
   },
   {
     accessorKey: "imageUrl",
     header: "Imagem",
+    cell: (report) =>
+      report.row.original.imageUrl ? "1 imagem" : "Nenhuma imagem",
   },
   {
     accessorKey: "images",
     header: "Imagens",
+    cell: (report) => {
+      const images = report.row.original.images
+      if (images.length === 0) {
+        return "Nenhuma imagem"
+      }
+      return `${images.length} imagem(s)`
+    },
   },
   {
     id: "actions",

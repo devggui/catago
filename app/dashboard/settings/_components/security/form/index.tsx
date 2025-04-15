@@ -21,11 +21,11 @@ export const SecurityForm = () => {
 
   const onSubmit = () => {
     try {
-      toast("Sucesso!", {
+      toast.success("Sucesso!", {
         description: "Senha atualizada com sucesso!",
       })
     } catch {
-      toast("Ooops!", {
+      toast.error("Ooops!", {
         description: "Não foi possível atualizar sua senha",
       })
     }

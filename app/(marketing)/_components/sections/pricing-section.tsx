@@ -81,7 +81,7 @@ export function PricingSection() {
               </li>
             </ul>
             <Button className="mt-8" size="lg">
-              <Link href="/register">Começar teste gratuito</Link>
+              <Link href="/dashboard">Começar teste gratuito</Link>
             </Button>
             <p className="mt-3 text-center text-xs text-muted-foreground">
               Não é necessário cartão de crédito para o período de teste

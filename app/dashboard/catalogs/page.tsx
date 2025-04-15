@@ -51,7 +51,9 @@ export default function CatalogsPage() {
       setIsDeleteDialogOpen(false)
       setVersion(version + 1)
     } catch {
-      toast("Ooops!", { description: "Não foi possível excluir o catálogo." })
+      toast.error("Ooops!", {
+        description: "Não foi possível excluir o catálogo.",
+      })
     } finally {
       setIsDeleteLoading(false)
     }

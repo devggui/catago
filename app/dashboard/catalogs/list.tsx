@@ -27,7 +27,7 @@ export const CatalogList = ({
       const { data } = await api.get<Catalog[]>("/catalogs")
       updateList({ items: data })
     } catch {
-      toast("Ooops!", {
+      toast.error("Ooops!", {
         description: "Não foi possível carregar a relação de produtos.",
       })
     } finally {

@@ -1,6 +1,16 @@
 import { nanoid } from "nanoid"
 
-export const generateSlug = (text: string): string => {
+interface GenerateSlugProps {
+  text: string
+  withNanoId: boolean
+}
+
+export const generateSlug = ({
+  text,
+  withNanoId = true,
+}: GenerateSlugProps): string => {
+  const uniqueId = nanoid(4) // gera identificador curto (ex: "a1b2")
+
   const slug = text
     .normalize("NFD") // Remove acentos
     .replace(/[\u0300-\u036f]/g, "")
@@ -9,7 +19,9 @@ export const generateSlug = (text: string): string => {
     .trim()
     .replace(/\s+/g, "-") // Troca espaços por "-"
 
-  const uniqueId = nanoid(4) // gera identificador curto (ex: "a1b2")
+  if (withNanoId) {
+    return `${slug}-${uniqueId}`
+  }
 
-  return `${slug}-${uniqueId}`
+  return slug
 }
