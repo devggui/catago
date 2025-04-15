@@ -43,7 +43,7 @@ export const columns = ({
   {
     accessorKey: "isActive",
     header: "Ativo",
-    cell: (report) => (report.row.original.isActive ? "ATIVO" : "INÁTIVO"),
+    cell: (report) => (report.row.original.isActive ? "ATIVO" : "INATIVO"),
   },
   {
     accessorKey: "isHighlighted",

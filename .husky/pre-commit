@@ -1,6 +1,9 @@
 #!/bin/sh
 npm run lint || (echo 'Linting errors. Please fix them before commiting.' && exit 1)
 
+# build
+npm run build
+
 # Playwright Tests 
 npm run test:playwright || (echo 'Testing errors. Please fix them before commiting.' && exit 1)
 

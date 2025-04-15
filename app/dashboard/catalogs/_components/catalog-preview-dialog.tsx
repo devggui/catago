@@ -125,7 +125,7 @@ export const CatalogPreviewDialog = ({
                   <div className="flex items-center justify-between">
                     <span className="text-sm">Status do Catálogo</span>
                     <span className="text-sm font-medium">
-                      {catalog.status}
+                      {catalog.isActive ? "ATIVO" : "INATIVO"}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
