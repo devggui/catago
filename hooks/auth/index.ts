@@ -52,7 +52,7 @@ export const useAuth = ({
 
       mutate()
     } catch {
-      toast("Ooops!", {
+      toast.error("Ooops!", {
         description: "O e-mail informado já está em uso",
       })
     }
@@ -68,7 +68,7 @@ export const useAuth = ({
 
       mutate()
     } catch {
-      toast("Ooops!", {
+      toast.error("Ooops!", {
         description: "E-mail ou senha inválidos",
       })
     }
@@ -85,7 +85,7 @@ export const useAuth = ({
 
         mutate()
       } catch {
-        toast("Ooops!", {
+        toast.error("Ooops!", {
           description: "Erro inesperado",
         })
       }

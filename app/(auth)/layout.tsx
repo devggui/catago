@@ -27,8 +27,7 @@ const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
           {children}
           <Separator />
           <p className="text-sm text-muted-foreground">
-            `© {new Date().getFullYear()} CircleSign - Todos os direitos
-            reservados`
+            © {new Date().getFullYear()} CataGo - Todos os direitos reservados
           </p>
           <div className="flex items-center gap-3">
             <ThemeSwitcher />

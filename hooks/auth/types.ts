@@ -1,11 +1,11 @@
 export enum authStatusEnum {
-  authenticated = 'authenticated',
-  logged_out = 'logged_out',
+  authenticated = "authenticated",
+  logged_out = "logged_out",
 }
 
 export enum authMiddlewareEnum {
-  guest = 'guest',
-  auth = 'auth',
+  guest = "guest",
+  auth = "auth",
 }
 
 export type UseAuthProps = {

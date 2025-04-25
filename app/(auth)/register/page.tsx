@@ -1,11 +1,11 @@
-import { RegisterForm } from '@/app/(auth)/register/_components/form'
-import Link from 'next/link'
+import { RegisterForm } from "@/app/(auth)/register/_components/form"
+import Link from "next/link"
 
 export const generateMetadata = async () => {
   return {
-    title: 'Cadastre-se',
+    title: "Cadastre-se",
     description:
-      'Crie sua conta Dashboard e comece a gerenciar seus produtos de forma simples e eficiente',
+      "Crie sua conta Dashboard e comece a gerenciar seus produtos de forma simples e eficiente",
   }
 }
 
@@ -15,7 +15,7 @@ const RegisterPage = async () => {
       <h1 className="text-2xl font-bold">Cadastre-se</h1>
       <RegisterForm />
       <p className="text-sm">
-        Já tem uma conta?{' '}
+        Já tem uma conta?{" "}
         <Link href="/login" prefetch className="text-primary">
           Entre aqui
         </Link>

@@ -64,3 +64,9 @@ docker-compose.*.yml
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

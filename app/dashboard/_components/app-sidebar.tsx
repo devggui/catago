@@ -30,20 +30,20 @@ const data = {
       icon: IconDashboard,
     },
     {
-      title: "Produtos",
-      url: "/products",
-      icon: IconListDetails,
+      title: "Catálogos",
+      url: "/dashboard/catalogs",
+      icon: IconShoppingBag,
     },
     {
-      title: "Catálogos",
-      url: "/catalog",
-      icon: IconShoppingBag,
+      title: "Produtos",
+      url: "/dashboard/products",
+      icon: IconListDetails,
     },
   ],
   navSecondary: [
     {
       title: "Configurações",
-      url: "/settings",
+      url: "/dashboard/settings",
       icon: IconSettings,
     },
   ],
