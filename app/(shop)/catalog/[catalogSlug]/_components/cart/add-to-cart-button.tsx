@@ -20,13 +20,13 @@ export function AddToCartButton({ product, ...props }: AddToCartButtonProps) {
 
   const handleAddToCart = () => {
     addItem(product)
-    toast.success(`${product.name} added to cart`)
+    toast.success(`${product.name} adicionado ao carrinho`)
   }
 
   return (
     <Button onClick={handleAddToCart} {...props}>
       <ShoppingCartIcon className="mr-2 h-4 w-4" />
-      Add to Cart
+      Adicionar
     </Button>
   )
 }

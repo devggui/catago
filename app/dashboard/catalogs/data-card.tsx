@@ -39,8 +39,8 @@ interface DataCardProps {
 export function DataCard({ actions, data }: DataCardProps) {
   const [previewCatalog, setPreviewCatalog] = useState<Catalog | null>(null)
 
-  const handleCopyLink = (catalogId: string) => {
-    const link = `${window.location.origin}/catalog/${catalogId}`
+  const handleCopyLink = (catalogSlug: string) => {
+    const link = `${window.location.origin}/catalog/${catalogSlug}`
     navigator.clipboard.writeText(link)
     toast.success("Sucesso!", {
       description: "Link do catálogo copiado com sucesso!",
@@ -80,7 +80,7 @@ export function DataCard({ actions, data }: DataCardProps) {
                       Visualização
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      onClick={() => handleCopyLink(catalog.id)}
+                      onClick={() => handleCopyLink(catalog.slug)}
                     >
                       <Copy />
                       Copiar link

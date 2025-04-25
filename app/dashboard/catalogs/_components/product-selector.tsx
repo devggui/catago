@@ -56,7 +56,7 @@ export const ProductSelector = ({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="flex flex-col gap-4 ">
         <div className="flex flex-col">
           <h3 className="mb-2 text-sm font-medium">Produtos Disponíveis</h3>
           <ScrollArea className="h-[300px] rounded-md border">
@@ -89,7 +89,7 @@ export const ProductSelector = ({
                       ) : (
                         <div className="flex h-full w-full items-center justify-center bg-muted">
                           <span className="text-xs text-muted-foreground">
-                            No img
+                            Sem imagem
                           </span>
                         </div>
                       )}

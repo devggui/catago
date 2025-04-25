@@ -54,7 +54,9 @@ export const ProfileForm = ({ initialData }: ProfileFormProps) => {
           {...register("name")}
         />
         {errors.name && (
-          <span className="text-sm text-red-500">{errors.name.message}</span>
+          <span className="text-sm text-destructive">
+            {errors.name.message}
+          </span>
         )}
       </div>
       <div className="flex flex-col gap-3">
@@ -70,7 +72,9 @@ export const ProfileForm = ({ initialData }: ProfileFormProps) => {
           O e-mail é fixo e não pode ser alterado.
         </span>
         {errors.email && (
-          <span className="text-sm text-red-500">{errors.email.message}</span>
+          <span className="text-sm text-destructive">
+            {errors.email.message}
+          </span>
         )}
       </div>
       <Button type="submit" disabled={isSubmitting}>

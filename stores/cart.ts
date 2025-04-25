@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { persist } from "zustand/middleware"
+import { createJSONStorage, persist } from "zustand/middleware"
 
 export type CartItem = {
   id: string
@@ -80,8 +80,7 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: "shopping-cart",
-      // Optional: customize storage
-      // storage: createJSONStorage(() => sessionStorage)
+      storage: createJSONStorage(() => sessionStorage),
     }
   )
 )

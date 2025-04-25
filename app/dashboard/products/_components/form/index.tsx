@@ -133,7 +133,7 @@ export const ProductForm = ({
                 {...register("name")}
               />
               {errors.name && (
-                <span className="text-sm text-red-500">
+                <span className="text-sm text-destructive">
                   {errors.name.message}
                 </span>
               )}
@@ -148,7 +148,7 @@ export const ProductForm = ({
                 {...register("slug")}
               />
               {errors.slug && (
-                <span className="text-sm text-red-500">
+                <span className="text-sm text-destructive">
                   {errors.slug.message}
                 </span>
               )}
@@ -162,7 +162,7 @@ export const ProductForm = ({
                 {...register("description")}
               />
               {errors.description && (
-                <span className="text-sm text-red-500">
+                <span className="text-sm text-destructive">
                   {errors.description.message}
                 </span>
               )}
@@ -181,7 +181,7 @@ export const ProductForm = ({
                 />
               </div>
               {errors.price && (
-                <span className="text-sm text-red-500">
+                <span className="text-sm text-destructive">
                   {errors.price.message}
                 </span>
               )}
@@ -195,7 +195,7 @@ export const ProductForm = ({
                 {...register("category")}
               />
               {errors.category && (
-                <span className="text-sm text-red-500">
+                <span className="text-sm text-destructive">
                   {errors.category.message}
                 </span>
               )}

@@ -3,7 +3,6 @@
 import type React from "react"
 
 import { ShoppingBagIcon } from "lucide-react"
-import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -18,17 +17,31 @@ import { Badge } from "@/components/ui/badge"
 import { useCartStore } from "@/stores/cart"
 import { CartItem } from "./cart-item"
 import { CartEmpty } from "./cart-empty"
+import { onlyNumbers } from "@/helpers/only-numbers"
 
 interface CartSheetProps {
+  whatsapp: string
   children?: React.ReactNode
 }
 
-export function CartSheet({ children }: CartSheetProps) {
+export function CartSheet({ whatsapp, children }: CartSheetProps) {
   const { items, itemCount, totalAmount, clearCart } = useCartStore()
 
   const handleCheckout = () => {
-    toast.success("Proceeding to checkout...")
-    // In a real app, you would redirect to checkout page
+    if (items.length === 0) return
+
+    const messageLines = items.map(
+      (item) => `- ${item.quantity}x ${item.name} (R$${item.price.toFixed(2)})`
+    )
+
+    const total = `\nTotal: R$${totalAmount.toFixed(2)}`
+    const fullMessage = `Olá, gostaria de comprar:\n${messageLines.join("\n")}${total}`
+
+    const encodedMessage = encodeURIComponent(fullMessage)
+    const whatsappNumber = onlyNumbers(whatsapp)
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`
+
+    window.open(whatsappUrl, "_blank")
   }
 
   return (
@@ -37,7 +50,7 @@ export function CartSheet({ children }: CartSheetProps) {
         {children || (
           <Button variant="outline" size="sm" className="relative">
             <ShoppingBagIcon className="h-4 w-4" />
-            <span className="ml-2">Cart</span>
+            <span className="ml-2">Carrinho</span>
             {itemCount > 0 && (
               <Badge className="absolute -right-2 -top-2 h-5 w-5 rounded-full p-0 flex items-center justify-center">
                 {itemCount}
@@ -46,16 +59,16 @@ export function CartSheet({ children }: CartSheetProps) {
           </Button>
         )}
       </SheetTrigger>
-      <SheetContent className="flex flex-col">
+      <SheetContent className="flex flex-col max-w-md min-w-md">
         <SheetHeader>
-          <SheetTitle>Your Cart</SheetTitle>
+          <SheetTitle>Seu Carrinho</SheetTitle>
         </SheetHeader>
 
         {items.length === 0 ? (
           <CartEmpty />
         ) : (
-          <div className="flex flex-1 flex-col">
-            <div className="flex-1 overflow-auto py-4">
+          <div className="flex flex-1 flex-col p-4">
+            <div className="flex-1 overflow-auto">
               {items.map((item) => (
                 <CartItem key={item.id} item={item} />
               ))}
@@ -64,32 +77,24 @@ export function CartSheet({ children }: CartSheetProps) {
             <div className="border-t pt-4">
               <div className="flex items-center justify-between py-2">
                 <span>Subtotal</span>
-                <span className="font-medium">${totalAmount.toFixed(2)}</span>
-              </div>
-              <div className="flex items-center justify-between py-2">
-                <span>Shipping</span>
-                <span className="font-medium">Calculated at checkout</span>
+                <span className="font-medium">R${totalAmount.toFixed(2)}</span>
               </div>
               <Separator className="my-2" />
               <div className="flex items-center justify-between py-2">
                 <span className="text-lg font-medium">Total</span>
                 <span className="text-lg font-bold">
-                  ${totalAmount.toFixed(2)}
+                  R${totalAmount.toFixed(2)}
                 </span>
               </div>
 
               <div className="mt-4 flex gap-2">
                 <Button className="flex-1" size="lg" onClick={handleCheckout}>
-                  Checkout
+                  Finalizar
                 </Button>
                 <Button variant="outline" size="lg" onClick={clearCart}>
-                  Clear Cart
+                  Limpar Carrinho
                 </Button>
               </div>
-
-              <p className="mt-4 text-center text-xs text-muted-foreground">
-                Shipping and taxes calculated at checkout.
-              </p>
             </div>
           </div>
         )}

@@ -35,7 +35,9 @@ export const RegisterForm = () => {
           {...register("name")}
         />
         {errors.name && (
-          <span className="text-sm text-red-500">{errors.name.message}</span>
+          <span className="text-sm text-destructive">
+            {errors.name.message}
+          </span>
         )}
       </div>
       <div className="flex flex-col gap-3">
@@ -47,7 +49,9 @@ export const RegisterForm = () => {
           {...register("email")}
         />
         {errors.email && (
-          <span className="text-sm text-red-500">{errors.email.message}</span>
+          <span className="text-sm text-destructive">
+            {errors.email.message}
+          </span>
         )}
       </div>
       <div className="flex flex-col gap-3">
@@ -60,7 +64,7 @@ export const RegisterForm = () => {
           {...register("password")}
         />
         {errors.password && (
-          <span className="text-sm text-red-500">
+          <span className="text-sm text-destructive">
             {errors.password.message}
           </span>
         )}
@@ -75,7 +79,7 @@ export const RegisterForm = () => {
           {...register("confirmPassword")}
         />
         {errors.confirmPassword && (
-          <span className="text-sm text-red-500">
+          <span className="text-sm text-destructive">
             {errors.confirmPassword.message}
           </span>
         )}

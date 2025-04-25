@@ -33,7 +33,7 @@ export function CartItem({ item }: CartItemProps) {
       <div className="flex-1">
         <h4 className="font-medium">{item.name}</h4>
         <p className="text-sm text-muted-foreground">
-          ${item.price.toFixed(2)}
+          R${item.price.toFixed(2)}
         </p>
 
         <div className="mt-1 flex items-center gap-2">
@@ -59,7 +59,7 @@ export function CartItem({ item }: CartItemProps) {
 
       <div className="text-right">
         <p className="font-medium">
-          ${(item.price * item.quantity).toFixed(2)}
+          R${(item.price * item.quantity).toFixed(2)}
         </p>
         <Button
           variant="ghost"
@@ -67,7 +67,7 @@ export function CartItem({ item }: CartItemProps) {
           className="mt-1 h-auto p-0 text-xs text-muted-foreground hover:text-destructive"
           onClick={() => removeItem(item.id)}
         >
-          Remove
+          Remover
         </Button>
       </div>
     </div>

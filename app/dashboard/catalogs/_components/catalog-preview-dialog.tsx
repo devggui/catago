@@ -1,6 +1,6 @@
 "use client"
 
-import { CopyIcon, ExternalLinkIcon, ShareIcon } from "lucide-react"
+import { CopyIcon, ExternalLinkIcon } from "lucide-react"
 import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import type { Catalog } from "@/types"
-import { ClientCatalogView } from "@/app/(shop)/catalog/[catalogId]/_components/client-catalog-view"
+import { ClientCatalogView } from "@/app/(shop)/catalog/[catalogSlug]/_components/client-catalog-view"
 
 interface CatalogPreviewDialogProps {
   catalog: Catalog
@@ -29,7 +29,7 @@ export const CatalogPreviewDialog = ({
   open,
   onOpenChange,
 }: CatalogPreviewDialogProps) => {
-  const catalogLink = `${window.location.origin}/catalog/${catalog.id}`
+  const catalogLink = `${window.location.origin}/catalog/${catalog.slug}`
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(catalogLink)
@@ -38,9 +38,13 @@ export const CatalogPreviewDialog = ({
     })
   }
 
+  const handleOpenCatalogInNewTab = () => {
+    window.open(catalogLink, "_blank")
+  }
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[800px] sm:h-[80vh] flex flex-col">
+      <DialogContent className="sm:max-w-[800px] sm:h-[80vh] flex flex-col overflow-auto">
         <DialogHeader>
           <DialogTitle>Visualização do Catálogo: {catalog.name}</DialogTitle>
           <DialogDescription>
@@ -91,23 +95,7 @@ export const CatalogPreviewDialog = ({
                   <Button
                     variant="outline"
                     className="gap-2"
-                    onClick={() => console.log("Share by Email")}
-                  >
-                    <ShareIcon className="h-4 w-4" />
-                    Compartilhar via E-mail
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="gap-2"
-                    onClick={() => console.log("Share by WhatsApp")}
-                  >
-                    <ShareIcon className="h-4 w-4" />
-                    Compartilhar via WhatsApp
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="gap-2"
-                    onClick={() => console.log("Open in New Tab")}
+                    onClick={handleOpenCatalogInNewTab}
                   >
                     <ExternalLinkIcon className="h-4 w-4" />
                     Abrir em Nova Aba

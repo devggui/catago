@@ -35,7 +35,9 @@ export const LoginForm = () => {
           {...register("email")}
         />
         {errors.email && (
-          <span className="text-sm text-red-500">{errors.email.message}</span>
+          <span className="text-sm text-destructive">
+            {errors.email.message}
+          </span>
         )}
       </div>
       <div className="flex flex-col gap-3">
@@ -48,7 +50,7 @@ export const LoginForm = () => {
           {...register("password")}
         />
         {errors.password && (
-          <span className="text-sm text-red-500">
+          <span className="text-sm text-destructive">
             {errors.password.message}
           </span>
         )}

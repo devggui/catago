@@ -43,7 +43,7 @@ export const SecurityForm = () => {
           {...register("password")}
         />
         {errors.password && (
-          <span className="text-sm text-red-500">
+          <span className="text-sm text-destructive">
             {errors.password.message}
           </span>
         )}
@@ -58,7 +58,7 @@ export const SecurityForm = () => {
           {...register("confirmPassword")}
         />
         {errors.confirmPassword && (
-          <span className="text-sm text-red-500">
+          <span className="text-sm text-destructive">
             {errors.confirmPassword.message}
           </span>
         )}

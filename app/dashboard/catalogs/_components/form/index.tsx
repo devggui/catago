@@ -6,7 +6,6 @@ import {
   DrawerClose,
   DrawerContent,
   DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer"
@@ -28,6 +27,8 @@ import { FileInput } from "@/components/ui/file-input"
 import Image from "next/image"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ProductSelector } from "../product-selector"
+import { InputMask } from "@react-input/mask"
+import { cn } from "@/lib/utils"
 
 type CatalogFormData = z.infer<typeof CatalogFormSchema>
 
@@ -63,6 +64,7 @@ export const CatalogForm = ({
     resolver: zodResolver(CatalogFormSchema),
     defaultValues: {
       logo: null,
+      isActive: true,
     },
   })
 
@@ -82,21 +84,29 @@ export const CatalogForm = ({
       Object.entries(initialData).forEach(([key, value]) => {
         setValue(key as keyof CatalogFormData, value as string)
       })
+      setSelectedProducts(initialData.products || [])
     } else {
       setValue("logo", null)
+      setSelectedProducts([])
       reset()
     }
   }, [isOpen])
 
   const sendForm = async ({ ...data }: CatalogFormData): Promise<void> => {
-    if (initialData?.id) await update(initialData.id, data)
-    else await store(data)
+    const productIds = selectedProducts.map((product) => product.id)
+
+    if (initialData?.id) await update(initialData.id, data, productIds)
+    else await store(data, productIds)
   }
 
-  const store = async (data: CatalogFormData): Promise<void> => {
+  const store = async (
+    data: CatalogFormData,
+    productIds: string[]
+  ): Promise<void> => {
     try {
-      await api.post("/catalogs", data)
+      await api.post("/catalogs", { ...data, productIds, isActive: true })
       onSuccess?.()
+      setSelectedProducts([])
       onOpenChange(false)
     } catch {
       toast.error("Ooops!", {
@@ -105,10 +115,18 @@ export const CatalogForm = ({
     }
   }
 
-  const update = async (id: string, data: CatalogFormData): Promise<void> => {
+  const update = async (
+    id: string,
+    data: CatalogFormData,
+    productIds: string[]
+  ): Promise<void> => {
     try {
-      await api.patch(`/catalogs/${id}`, data)
+      await api.put(`/catalogs/${id}`, {
+        ...data,
+        productIds,
+      })
       onSuccess?.()
+      setSelectedProducts([])
       onOpenChange(false)
     } catch {
       toast.error("Ooops!", {
@@ -148,9 +166,9 @@ export const CatalogForm = ({
           <TabsContent value="details">
             <div className="mx-auto w-full max-w-md overflow-y-auto">
               <form
+                id="catalog-form"
                 className="flex flex-col gap-6 p-4"
                 onSubmit={handleSubmit(sendForm)}
-                id="catalog-form"
               >
                 <div className="flex flex-col gap-3">
                   <Label htmlFor="name">Nome</Label>
@@ -160,7 +178,7 @@ export const CatalogForm = ({
                     {...register("name")}
                   />
                   {errors.name && (
-                    <span className="text-sm text-red-500">
+                    <span className="text-sm text-destructive">
                       {errors.name.message}
                     </span>
                   )}
@@ -175,7 +193,7 @@ export const CatalogForm = ({
                     {...register("slug")}
                   />
                   {errors.slug && (
-                    <span className="text-sm text-red-500">
+                    <span className="text-sm text-destructive">
                       {errors.slug.message}
                     </span>
                   )}
@@ -189,8 +207,33 @@ export const CatalogForm = ({
                     {...register("description")}
                   />
                   {errors.description && (
-                    <span className="text-sm text-red-500">
+                    <span className="text-sm text-destructive">
                       {errors.description.message}
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="whatsapp">WhatsApp</Label>
+                  <InputMask
+                    className={cn(
+                      "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                      "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+                      "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
+                    )}
+                    id="whatsapp"
+                    placeholder="(99) 99999-9999"
+                    mask="+55 (__) _____-____"
+                    replacement={{ _: /\d/ }}
+                    {...register("whatsapp")}
+                  />
+                  <span className="text-sm text-muted-foreground">
+                    Ele será usado para enviar o pedido do cliente direto para o
+                    seu whatsapp.
+                  </span>
+                  {errors.slug && (
+                    <span className="text-sm text-destructive">
+                      {errors.slug.message}
                     </span>
                   )}
                 </div>
@@ -254,31 +297,37 @@ export const CatalogForm = ({
                     </Button>
                   </div>
                 )}
+
+                <div className="flex flex-col gap-3">
+                  <Button
+                    type="submit"
+                    form="catalog-form"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
+                    Confirmar
+                  </Button>
+                  <DrawerClose asChild>
+                    <Button variant="outline" disabled={isSubmitting}>
+                      Cancelar
+                    </Button>
+                  </DrawerClose>
+                </div>
               </form>
             </div>
           </TabsContent>
 
           <TabsContent value="products" className="mt-4">
             <ProductSelector
-              className="px-4"
+              className="p-4"
               selectedProducts={selectedProducts}
               onProductsChange={setSelectedProducts}
               availableProducts={availableProducts}
             />
           </TabsContent>
         </Tabs>
-
-        <DrawerFooter className="mx-auto w-full max-w-md">
-          <Button type="submit" form="catalog-form" disabled={isSubmitting}>
-            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Confirmar
-          </Button>
-          <DrawerClose asChild>
-            <Button variant="outline" disabled={isSubmitting}>
-              Cancelar
-            </Button>
-          </DrawerClose>
-        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   )

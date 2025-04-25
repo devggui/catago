@@ -7,4 +7,5 @@ export const CatalogFormSchema = z.object({
   description: z.string().optional(),
   logo: z.string().optional().nullable(),
   isActive: z.boolean(),
+  whatsapp: z.string().min(1, "O whatsapp é obrigatório"),
 })

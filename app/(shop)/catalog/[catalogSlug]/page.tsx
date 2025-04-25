@@ -1,18 +1,22 @@
 import { notFound } from "next/navigation"
 import { ClientCatalogView } from "./_components/client-catalog-view"
-import { mockCatalogs } from "@/app/dashboard/catalogs/_components/mock-data"
 
 export default async function CatalogPage({
   params,
 }: {
-  params: Promise<{ catalogId: string }>
+  params: Promise<{ catalogSlug: string }>
 }) {
-  const { catalogId } = await params
-  const catalog = mockCatalogs.find((c) => c.id === catalogId)
+  const { catalogSlug } = await params
 
-  if (!catalog) {
+  const data = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/catalogs/${catalogSlug}`
+  )
+
+  if (!data.ok) {
     notFound()
   }
+
+  const catalog = await data.json()
 
   return <ClientCatalogView catalog={catalog} />
 }

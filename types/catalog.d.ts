@@ -8,6 +8,7 @@ export type Catalog = {
   logo?: string | null
   products?: Product[]
   isActive: boolean
+  whatsapp: string
   userId: string
   createdAt: string | Date
   updatedAt: string | Date
